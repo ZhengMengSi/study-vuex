@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{doneTodosCount}}
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vuex/3.0.1/vuex.js"></script>
+<script>
+    const store = new Vuex.Store({
+        state: {
+            todos: [
+                { id: 1, text: '1', done: true },
+                { id: 2, text: '2', done: false }
+            ]
+        },
+        getters: {
+            doneTodos: state => {
+                return state.todos.filter(todo => todo.done)
+            },
+            doneTodosCount: (state, getters) => {
+                return getters.doneTodos.length
+            },
+            getTodoById: (state) => (id) => {
+                return state.todos.find(todo => todo.id === id)
+            }
+        }
+    })
+
+    new Vue({
+        el: '#app',
+        store,
+        computed: {
+            doneTodosCount () {
+                return this.$store.getters.doneTodosCount
+            },
+
+        }
+    })
+</script>
+</body>
+</html>
