@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="app">
-    {{doneTodosCount}}
+    过滤并计数（done为true）：{{doneTodos}}
 </div>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
@@ -37,9 +37,13 @@
         store,
         computed: {
             doneTodosCount () {
-                return this.$store.getters.doneTodosCount
+                // return this.$store.state.todos.filter(todo => todo.done).length
+                // return this.$store.getters.doneTodosCount
+                return this.$store.getters.getTodoById(2)
             },
-
+            ...Vuex.mapGetters([
+                'doneTodos'
+            ])
         }
     })
 </script>
